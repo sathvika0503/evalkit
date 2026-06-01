@@ -1,20 +1,13 @@
 import typer
-import yaml
+from evalkit.runner import run_eval
 
 app = typer.Typer()
 
+
 @app.command()
 def run():
-    with open("examples/basic_eval.yaml", "r") as file:
-        data = yaml.safe_load(file)
+    run_eval("examples/summarisation.eval.yaml")
 
-    print("Prompt:", data["prompt"])
-    print("Expected:", data["expected"])
-
-    if data["expected"] == "4":
-        print("PASS")
-    else:
-        print("FAIL")
 
 if __name__ == "__main__":
     app()
