@@ -1,32 +1,26 @@
 from evalkit.schema import load_spec
+from evalkit.evaluators import REGISTRY
 
 
-def run_eval(path: str):
+def run_suite(path: str):
     spec = load_spec(path)
 
-    print("Suite:", spec.suite)
-    print("Model:", spec.model)
-    print()
+    print(f"\nRunning suite: {spec.suite}")
+    print(f"Model: {spec.model}\n")
 
     for case in spec.cases:
-        print("Case:", case.id)
+        print(f"Case: {case.id}")
 
-        output = case.prompt.format(
-            input=case.input or ""
-        )
-
-        print("Prompt:", output)
-
-        passed = False
+        # temporary mock output
+        output = "The Eiffel Tower was completed in 1889."
 
         for assertion in case.assertions:
-            if assertion.type == "contains":
-                if str(assertion.value) in output:
-                    passed = True
+            evaluator_cls = REGISTRY[assertion.type]
+            evaluator = evaluator_cls()
 
-        if passed:
-            print("PASS")
-        else:
-            print("FAIL")
+            result = evaluator.evaluate(output, assertion)
 
-        print()
+            status = "PASS" if result.passed else "FAIL"
+            print(f"  [{status}] {assertion.type}")
+
+    print("\nFinished.\n")

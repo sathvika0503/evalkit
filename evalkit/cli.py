@@ -1,12 +1,12 @@
 import typer
-from evalkit.runner import run_eval
+from evalkit.runner import run_suite
 
 app = typer.Typer()
 
 
 @app.command()
 def run():
-    run_eval("examples/summarisation.eval.yaml")
+    run_suite("examples/summarisation.eval.yaml")
 
 
 if __name__ == "__main__":
