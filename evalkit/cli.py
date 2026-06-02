@@ -3,11 +3,9 @@ from evalkit.runner import run_suite
 
 app = typer.Typer()
 
-
 @app.command()
-def run():
-    run_suite("examples/summarisation.eval.yaml")
-
+def run(path: str):
+    run_suite(path)
 
 if __name__ == "__main__":
     app()

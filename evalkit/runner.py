@@ -12,7 +12,11 @@ def run_suite(path: str):
         print(f"Case: {case.id}")
 
         # temporary mock output
-        output = "The Eiffel Tower was completed in 1889."
+        from evalkit.providers.mock import MockProvider
+        provider = MockProvider()
+        output = provider.generate(
+            case.prompt.format(input=case.input or "")
+        )
 
         for assertion in case.assertions:
             evaluator_cls = REGISTRY[assertion.type]
