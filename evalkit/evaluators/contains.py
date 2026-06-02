@@ -1,7 +1,4 @@
-from evalkit.evaluators.base import (
-    AssertionResult,
-    Evaluator,
-)
+from evalkit.evaluators.base import Evaluator, AssertionResult
 
 
 class ContainsEvaluator(Evaluator):
@@ -9,5 +6,6 @@ class ContainsEvaluator(Evaluator):
         passed = str(config.value) in output
 
         return AssertionResult(
-            passed=passed
+            passed=passed,
+            reason=f"Expected '{config.value}' in output"
         )

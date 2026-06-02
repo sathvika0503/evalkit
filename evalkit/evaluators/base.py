@@ -13,9 +13,5 @@ class AssertionResult:
 
 class Evaluator(ABC):
     @abstractmethod
-    def evaluate(
-        self,
-        output: str,
-        config: Assertion,
-    ) -> AssertionResult:
+    def evaluate(self, output: str, config: Assertion) -> AssertionResult:
         pass

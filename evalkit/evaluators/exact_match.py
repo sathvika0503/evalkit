@@ -1,7 +1,4 @@
-from evalkit.evaluators.base import (
-    AssertionResult,
-    Evaluator,
-)
+from evalkit.evaluators.base import Evaluator, AssertionResult
 
 
 class ExactMatchEvaluator(Evaluator):
@@ -9,5 +6,6 @@ class ExactMatchEvaluator(Evaluator):
         passed = output.strip() == str(config.value).strip()
 
         return AssertionResult(
-            passed=passed
+            passed=passed,
+            reason=f"Expected exact match: {config.value}"
         )
