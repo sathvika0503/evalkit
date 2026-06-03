@@ -1,7 +1,9 @@
-from evalkit.providers.mock import MockProvider
-from evalkit.providers.openai_provider import OpenAIProvider
+from .mock import MockProvider
+from .openai_provider import OpenAIProvider
+from .openrouter_provider import OpenRouterProvider
 
 PROVIDERS = {
     "mock": MockProvider,
     "openai": OpenAIProvider,
+    "openrouter": OpenRouterProvider,
 }

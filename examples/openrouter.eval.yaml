@@ -1,0 +1,11 @@
+suite: openrouter-test
+
+provider: openrouter
+model: openai/gpt-4o-mini
+
+cases:
+  - id: basic-001
+    prompt: "What is the capital of France?"
+    assertions:
+      - type: contains
+        value: "Paris"

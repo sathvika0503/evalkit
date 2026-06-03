@@ -1,11 +1,11 @@
 suite: summarisation-v1
-model: gpt-4o-mini
+provider: mock
+model: mock
 
 cases:
   - id: sum-001
     prompt: "Summarise: {input}"
-    input: "The Eiffel Tower was constructed between 1887 and 1889."
-
+    input: "The Eiffel Tower..."
     assertions:
       - type: contains
         value: "1889"

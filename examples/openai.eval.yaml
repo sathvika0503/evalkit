@@ -1,0 +1,10 @@
+suite: openai-demo
+provider: openai
+model: gpt-4o-mini
+
+cases:
+  - id: fact-001
+    prompt: "When was the Eiffel Tower completed?"
+    assertions:
+      - type: contains
+        value: "1889"

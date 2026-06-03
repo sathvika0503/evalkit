@@ -18,6 +18,7 @@ class TestCase(BaseModel):
 
 class EvalSuite(BaseModel):
     suite: str
+    provider: str = "mock"
     model: str
     temperature: float = 0
     cases: list[TestCase]

@@ -5,6 +5,7 @@ evalkit/cli.py
 evalkit/results.py
 evalkit/runner.py
 evalkit/schema.py
+evalkit/store.py
 evalkit.egg-info/PKG-INFO
 evalkit.egg-info/SOURCES.txt
 evalkit.egg-info/dependency_links.txt
@@ -15,10 +16,12 @@ evalkit/evaluators/__init__.py
 evalkit/evaluators/base.py
 evalkit/evaluators/contains.py
 evalkit/evaluators/exact_match.py
+evalkit/evaluators/llm_judge.py
 evalkit/evaluators/regex.py
 evalkit/providers/__init__.py
 evalkit/providers/base.py
 evalkit/providers/mock.py
+evalkit/providers/openai_provider.py
 tests/test_basic.py
 tests/test_evaluators.py
 tests/test_runner.py

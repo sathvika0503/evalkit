@@ -1,8 +1,7 @@
 from abc import ABC, abstractmethod
 
 
-class Provider(ABC):
+class BaseProvider(ABC):
     @abstractmethod
     def generate(self, prompt: str) -> str:
         pass
-        
