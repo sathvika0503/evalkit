@@ -2,6 +2,7 @@ from evalkit.schema import load_spec
 from evalkit.evaluators import REGISTRY
 from evalkit.providers import PROVIDERS
 from evalkit.results import CaseResult
+from evalkit.store import create_run
 
 
 def run_suite(path: str):
@@ -44,5 +45,18 @@ def run_suite(path: str):
                 passed_assertions=passed_assertions,
             )
         )
+
+    passed_cases = sum(result.passed for result in results)
+    total_cases = len(results)
+
+    run = create_run(
+        suite=spec.suite,
+        passed=passed_cases,
+        total=total_cases,
+    )
+
+    print(f"\nRun ID: {run.id}")
+    print(f"Git SHA: {run.git_sha}")
+    print(f"Score: {run.score:.2%}")
 
     return results
