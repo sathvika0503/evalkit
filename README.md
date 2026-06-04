@@ -1,150 +1,84 @@
-# EvalKit 
+# EvalKit
 
-> A lightweight, open-source test harness for LLM outputs. Write assertions in YAML, run them in CI, and track regressions across commits.
+Lightweight LLM evaluation framework for testing prompts, models, and AI systems using YAML-defined test suites.
 
-[![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-blue.svg)](https://www.python.org/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-[![ECSoC 2026](https://img.shields.io/badge/ECSoC-2026-purple.svg)]()
+## Features
 
----
+* YAML-based evaluation suites
+* Multiple evaluator types
 
-## Why EvalKit?
+  * Exact Match
+  * Contains
+  * Regex
+  * LLM Judge
+* Provider abstraction
 
-Every team building with LLMs eventually asks:
+  * Mock
+  * OpenAI
+  * OpenRouter
+* SQLite run history
+* Run comparison and regression tracking
+* HTML report generation
+* GitHub Actions CI
 
-**Did this prompt change break something?**
-
-EvalKit helps solve that by making LLM outputs testable.
-
-It gives:
-
-* **YAML-based test specs** — prompts + assertions in one file
-* **Multiple assertion types** — exact match, contains, regex
-* **CLI runner** — run tests quickly from terminal
-* **CI integration** — fail builds automatically on regression
-* **Regression tracking** — compare outputs across commits
-* **Multi-model support** — OpenAI, Anthropic, Gemini
-
----
-
-## Quickstart
-
-Install:
+## Installation
 
 ```bash
-pip install evalkit
+pip install -e .
 ```
 
-Create a YAML test file:
+## Quick Start
+
+```bash
+evalkit run examples/summarisation.eval.yaml
+```
+
+## Example Spec
 
 ```yaml
 suite: summarisation-v1
-model: gpt-4o-mini
+provider: mock
+model: mock
 
 cases:
   - id: sum-001
-    prompt: "Summarise in one sentence: {input}"
-    input: "The Eiffel Tower was built in 1889."
-
+    prompt: "Summarise: {input}"
+    input: "The Eiffel Tower..."
     assertions:
       - type: contains
         value: "1889"
 ```
 
-Run:
+## Commands
+
+### Run Evaluations
 
 ```bash
-evalkit run examples/basic_eval.yaml
+evalkit run suite.yaml
 ```
 
-Example output:
-
-```txt
-Prompt: What is 2 + 2?
-Expected: 4
-PASS
-```
-
----
-
-## Installation
-
-Python 3.10+
-
-From source:
+### View History
 
 ```bash
-git clone https://github.com/sathvika0503/evalkit.git
-cd evalkit
-```
-
-Install dependencies:
-
-```bash
-pip install -r requirements.txt
-```
-
-Run:
-
-```bash
-python evalkit/cli.py
-```
-
----
-
-## Assertion types
-
-| Type          | Purpose                |
-| ------------- | ---------------------- |
-| `exact_match` | Output equals expected |
-| `contains`    | Output contains value  |
-| `regex`       | Match regex            |
-| `json_schema` | Validate JSON          |
-| `llm_judge`   | LLM scoring            |
-
----
-
-## CLI commands
-
-```bash
-evalkit run examples/basic_eval.yaml
 evalkit history
-evalkit compare
 ```
 
----
+### Compare Runs
 
-## Project structure
-
-```txt
-evalkit/
-├── evalkit/
-│   ├── cli.py
-│   ├── runner.py
-│   ├── evaluators/
-│   └── providers/
-├── examples/
-├── tests/
-└── README.md
+```bash
+evalkit compare RUN_ID_1 RUN_ID_2
 ```
 
----
+### Generate HTML Report
 
-## Contributing
+```bash
+evalkit run suite.yaml --report report.html
+```
 
-Contributions are welcome.
+## Architecture
 
-Ideas:
+YAML Suite → Provider → Model Output → Evaluators → SQLite Storage → Reports
 
-* Add new evaluators
-* Improve CLI
-* Add more providers
-* Better reporting
+## CI
 
----
-
-## License
-
-MIT
-
-Built for **Elite Coders Summer of Code (ECSoC) 2026**
+GitHub Actions automatically runs tests and evaluation suites on every push and pull request.
