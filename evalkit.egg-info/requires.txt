@@ -1,6 +1,0 @@
-typer
-pydantic
-pyyaml
-sqlmodel
-openai
-rich
