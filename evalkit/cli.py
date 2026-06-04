@@ -3,18 +3,26 @@ import typer
 from evalkit.runner import run_suite
 from evalkit.history import list_runs
 from evalkit.compare import compare_runs
+from evalkit.reporting import generate_html_report
 
 app = typer.Typer()
 
 
 @app.command()
-def run(path: str):
+def run(
+    path: str,
+    report: str | None = None,
+):
     results = run_suite(path)
 
     passed = sum(r.passed for r in results)
 
     print("\nSummary")
     print(f"Passed: {passed}/{len(results)} cases")
+
+    if report:
+        generate_html_report(results, report)
+        print(f"Report written to {report}")
 
 
 @app.command()
@@ -25,6 +33,8 @@ def history():
         print(
             f"{run.id} | {run.suite} | {run.passed}/{run.total} | {run.score:.2%} | {run.git_sha}"
         )
+
+
 @app.command()
 def compare(base_id: str, head_id: str):
     result = compare_runs(base_id, head_id)
