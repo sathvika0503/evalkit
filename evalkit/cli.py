@@ -1,6 +1,7 @@
 import typer
 from rich.console import Console
 from rich.table import Table
+from evalkit.trend import get_recent_runs
 
 from evalkit.runner import run_suite
 from evalkit.history import list_runs
@@ -92,6 +93,28 @@ def compare(base_id: str, head_id: str):
 
     console.print()
     console.print(f"Difference: [{color}]{diff:.2%}[/{color}]")
+@app.command()
+def trend():
+    runs = get_recent_runs()
+
+    table = Table(title="EvalKit Score Trend")
+    table.add_column("Run")
+    table.add_column("Suite")
+    table.add_column("Score")
+    table.add_column("Bar")
+
+    for index, run in enumerate(reversed(runs), start=1):
+        blocks = int(run.score * 10)
+        bar = "█" * blocks + "░" * (10 - blocks)
+
+        table.add_row(
+            str(index),
+            run.suite,
+            f"{run.score:.2%}",
+            bar,
+        )
+
+    console.print(table)
 
 
 if __name__ == "__main__":
