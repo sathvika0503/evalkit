@@ -3,8 +3,95 @@ Name: evalkit
 Version: 0.1.0
 Summary: LLM evaluation framework
 Requires-Python: >=3.10
+Description-Content-Type: text/markdown
 Requires-Dist: typer
 Requires-Dist: pydantic
 Requires-Dist: pyyaml
 Requires-Dist: sqlmodel
 Requires-Dist: openai
+Requires-Dist: rich
+
+# EvalKit
+
+Lightweight LLM evaluation framework for testing prompts, models, and AI systems using YAML-defined test suites.
+
+## Features
+
+* YAML-based evaluation suites
+* Multiple evaluator types
+
+  * Exact Match
+  * Contains
+  * Regex
+  * LLM Judge
+* Provider abstraction
+
+  * Mock
+  * OpenAI
+  * OpenRouter
+* SQLite run history
+* Run comparison and regression tracking
+* HTML report generation
+* GitHub Actions CI
+
+## Installation
+
+```bash
+pip install -e .
+```
+
+## Quick Start
+
+```bash
+evalkit run examples/summarisation.eval.yaml
+```
+
+## Example Spec
+
+```yaml
+suite: summarisation-v1
+provider: mock
+model: mock
+
+cases:
+  - id: sum-001
+    prompt: "Summarise: {input}"
+    input: "The Eiffel Tower..."
+    assertions:
+      - type: contains
+        value: "1889"
+```
+
+## Commands
+
+### Run Evaluations
+
+```bash
+evalkit run suite.yaml
+```
+
+### View History
+
+```bash
+evalkit history
+```
+
+### Compare Runs
+
+```bash
+evalkit compare RUN_ID_1 RUN_ID_2
+```
+
+### Generate HTML Report
+
+```bash
+evalkit run suite.yaml --report report.html
+```
+
+## Architecture
+
+YAML Suite → Provider → Model Output → Evaluators → SQLite Storage → Reports
+
+## CI
+
+GitHub Actions automatically runs tests and evaluation suites on every push and pull request.

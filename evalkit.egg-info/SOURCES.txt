@@ -5,11 +5,13 @@ evalkit/cli.py
 evalkit/compare.py
 evalkit/git_utils.py
 evalkit/history.py
+evalkit/json_report.py
 evalkit/reporting.py
 evalkit/results.py
 evalkit/runner.py
 evalkit/schema.py
 evalkit/store.py
+evalkit/trend.py
 evalkit.egg-info/PKG-INFO
 evalkit.egg-info/SOURCES.txt
 evalkit.egg-info/dependency_links.txt
