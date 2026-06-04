@@ -38,10 +38,14 @@ def run(
     console.print(table)
 
     passed = sum(r.passed for r in results)
+    failed = len(results) - passed
 
     console.print()
     console.print("[bold]Summary[/bold]")
     console.print(f"Passed: [green]{passed}[/green]/{len(results)} cases")
+
+    if failed > 0:
+        raise typer.Exit(code=1)
 
     if report:
         generate_html_report(results, report)

@@ -1,0 +1,11 @@
+suite: failing-suite
+provider: mock
+model: mock
+
+cases:
+  - id: fail-001
+    prompt: "Summarise: {input}"
+    input: "The Eiffel Tower..."
+    assertions:
+      - type: contains
+        value: "9999"
