@@ -1,0 +1,12 @@
+{
+  "total_cases": 1,
+  "passed_cases": 1,
+  "cases": [
+    {
+      "case_id": "sum-001",
+      "passed": true,
+      "passed_assertions": 1,
+      "total_assertions": 1
+    }
+  ]
+}

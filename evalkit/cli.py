@@ -1,12 +1,13 @@
 import typer
 from rich.console import Console
 from rich.table import Table
-from evalkit.trend import get_recent_runs
 
 from evalkit.runner import run_suite
 from evalkit.history import list_runs
 from evalkit.compare import compare_runs
 from evalkit.reporting import generate_html_report
+from evalkit.json_report import write_json_report
+from evalkit.trend import get_recent_runs
 
 app = typer.Typer()
 console = Console()
@@ -16,6 +17,7 @@ console = Console()
 def run(
     path: str,
     report: str | None = None,
+    json: str | None = None,
 ):
     results = run_suite(path)
 
@@ -38,12 +40,16 @@ def run(
     passed = sum(r.passed for r in results)
 
     console.print()
-    console.print(f"[bold]Summary[/bold]")
+    console.print("[bold]Summary[/bold]")
     console.print(f"Passed: [green]{passed}[/green]/{len(results)} cases")
 
     if report:
         generate_html_report(results, report)
         console.print(f"[green]Report written to {report}[/green]")
+
+    if json:
+        write_json_report(results, json)
+        console.print(f"[green]JSON report written to {json}[/green]")
 
 
 @app.command()
@@ -93,6 +99,8 @@ def compare(base_id: str, head_id: str):
 
     console.print()
     console.print(f"Difference: [{color}]{diff:.2%}[/{color}]")
+
+
 @app.command()
 def trend():
     runs = get_recent_runs()
