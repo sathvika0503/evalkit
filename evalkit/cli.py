@@ -2,6 +2,7 @@ import typer
 
 from evalkit.runner import run_suite
 from evalkit.history import list_runs
+from evalkit.compare import compare_runs
 
 app = typer.Typer()
 
@@ -24,6 +25,26 @@ def history():
         print(
             f"{run.id} | {run.suite} | {run.passed}/{run.total} | {run.score:.2%} | {run.git_sha}"
         )
+@app.command()
+def compare(base_id: str, head_id: str):
+    result = compare_runs(base_id, head_id)
+
+    base = result["base"]
+    head = result["head"]
+
+    print(f"Base Run : {base.id}")
+    print(f"Head Run : {head.id}")
+    print()
+
+    print(
+        f"Score Change: "
+        f"{base.score:.2%} -> {head.score:.2%}"
+    )
+
+    print(
+        f"Difference: "
+        f"{result['score_change']:.2%}"
+    )
 
 
 if __name__ == "__main__":
