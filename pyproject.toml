@@ -12,6 +12,8 @@ dependencies = [
     "typer",
     "pydantic",
     "pyyaml",
+    "sqlmodel",
+    "openai",
 ]
 
 [project.scripts]

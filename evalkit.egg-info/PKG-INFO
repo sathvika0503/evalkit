@@ -6,3 +6,5 @@ Requires-Python: >=3.10
 Requires-Dist: typer
 Requires-Dist: pydantic
 Requires-Dist: pyyaml
+Requires-Dist: sqlmodel
+Requires-Dist: openai

@@ -1,3 +1,5 @@
 typer
 pydantic
 pyyaml
+sqlmodel
+openai

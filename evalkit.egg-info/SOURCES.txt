@@ -2,6 +2,10 @@ README.md
 pyproject.toml
 evalkit/__init__.py
 evalkit/cli.py
+evalkit/compare.py
+evalkit/git_utils.py
+evalkit/history.py
+evalkit/reporting.py
 evalkit/results.py
 evalkit/runner.py
 evalkit/schema.py
@@ -22,8 +26,11 @@ evalkit/providers/__init__.py
 evalkit/providers/base.py
 evalkit/providers/mock.py
 evalkit/providers/openai_provider.py
+evalkit/providers/openrouter_provider.py
 tests/test_basic.py
 tests/test_evaluators.py
+tests/test_llm_judge.py
 tests/test_runner.py
 tests/test_schema.py
+tests/test_store.py
 tests/test_summary.py
